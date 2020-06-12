@@ -97,7 +97,13 @@ shinyServer(function(input, output) {
     d = r_d()
     
     #plot
-    g = ggplot(d, aes(pred_con, out_con)) + geom_point(aes(color = pred_discrete)) + geom_smooth(method = lm, se = F) + xlab("Underlying predictor phenotype") + ylab("Underlying outcome phenotype") + scale_color_discrete(name = "Predictor group")
+    g = ggplot(d, aes(pred_con, out_con)) + 
+      geom_point(aes(color = pred_discrete)) + 
+      geom_smooth(method = lm, se = F) + 
+      xlab("Underlying predictor phenotype") + 
+      ylab("Underlying outcome phenotype") + 
+      scale_color_discrete(name = "Predictor group") +
+      theme_bw()
     
     return(g)
   })
@@ -116,7 +122,13 @@ shinyServer(function(input, output) {
     grob_bg = grobTree(rectGrob(gp=gpar(fill="white"), x = .89, y = .1, width = .15, height = .1))
     
     #plot prop by group
-    g = ggplot(d2, aes(pred_discrete, prop)) + geom_bar(stat = "identity") + xlab("Predictor group") + ylab("Absolute risk") + annotation_custom(grob_bg) + annotation_custom(grob)
+    g = ggplot(d2, aes(pred_discrete, prop)) + 
+      geom_bar(stat = "identity") + 
+      xlab("Predictor group") + 
+      ylab("Absolute risk") + 
+      annotation_custom(grob_bg) + 
+      annotation_custom(grob) +
+      theme_bw()
     
     return(g)
   })
@@ -132,7 +144,13 @@ shinyServer(function(input, output) {
     d3$variable = factor(d3$variable, c("RR_low", "RR_central", "RR_high"))
     
     #plot
-    g = ggplot(d3, aes(pred_discrete, value)) + geom_bar(aes(group = variable, fill = variable), stat = "identity", position = "dodge") + xlab("Predictor group") + ylab("Relative risk") + geom_hline(yintercept = 1, linetype = "dashed") + scale_fill_discrete(name = "Comparison\ngroup", label = c("Lowest", "Central", "Highest"))
+    g = ggplot(d3, aes(pred_discrete, value)) + 
+      geom_bar(aes(group = variable, fill = variable), stat = "identity", position = "dodge") + 
+      xlab("Predictor group") + 
+      ylab("Relative risk") + 
+      geom_hline(yintercept = 1, linetype = "dashed") + 
+      scale_fill_discrete(name = "Comparison\ngroup", label = c("Lowest", "Central", "Highest")) +
+      theme_bw()
     
     return(g)
   })
